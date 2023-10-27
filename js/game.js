@@ -1,8 +1,9 @@
 import MainScene from '/js/MainScene.js'
-
+const height = 512
+const width = 512
 const config = {
-    width: 512,
-    height: 512,
+    width: width,
+    height: height,
     backgroundColor: '000',
     type: Phaser.AUTO,
     parent: 'game',

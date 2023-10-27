@@ -5,6 +5,10 @@ export default class MainScene extends Phaser.Scene {
 
     preload() {
         console.log('preload')
+        this.load.spritesheet('spritesheet_key', '/assets/images/Samurai/SpriteSheet.png', {
+            frameWidth: 32,
+            frameHeight: 42
+        });
     }
 
     create() {
@@ -16,6 +20,17 @@ export default class MainScene extends Phaser.Scene {
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
         }))
+        // Create an animation for the sprite
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNumbers('spritesheet_key', { start: 0, end: 3 }), // Replace with the appropriate frame numbers
+            frameRate: 10,
+            repeat: -1
+        });
+
+        // Create the player sprite using the sprite sheet
+        this.player = this.physics.add.sprite(x, y, 'spritesheet_key', frameNumber); // Replace 'x', 'y', and 'frameNumber' with actual values
+        this.player.play('walk'); // Start the animation
     }
 
     update() {
@@ -34,6 +49,7 @@ export default class MainScene extends Phaser.Scene {
         else if(this.inputKeys.down.isDown) {
             playerVelocity.y = 1
         }
+        playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.player.setVelocity(playerVelocity.x, playerVelocity.y)
     }
